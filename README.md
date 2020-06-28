@@ -15,3 +15,7 @@ Open another terminal and do:
 export FLASK_APP=api.py
 
 Yarn start-api
+
+
+
+PS: front end inspired by: https://towardsdatascience.com/create-a-complete-machine-learning-web-application-using-react-and-flask-859340bddb33
