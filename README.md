@@ -9,6 +9,9 @@ To run the whole project:
 Open one terminal and do:
 
 Yarn start
+
 Open another terminal and do:
+
 export FLASK_APP=api.py
+
 Yarn start-api
