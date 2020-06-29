@@ -114,9 +114,9 @@ class App extends Component {
         <div>
         <a href={recommendations[itemIdx].github_repo_url} >{itemIdx+1}. {recommendations[itemIdx].owner_repo_name}</a>
         <Col>{recommendations[itemIdx].repo_description}</Col> 
-        <Col>count_of_stars: {recommendations[itemIdx].count_of_stars}</Col>
+        <Col><span role="img" aria-label="sheep">&#9733; </span> {recommendations[itemIdx].count_of_stars}</Col>
         <Col>{recommendations[itemIdx].primary_language_name}</Col>
-        <Col>Created: {recommendations[itemIdx].repo_created_day}</Col>
+        <Col>{recommendations[itemIdx].repo_created_day}</Col>
         </div>
         )
     }
