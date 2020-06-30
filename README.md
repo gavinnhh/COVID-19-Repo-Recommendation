@@ -23,6 +23,7 @@ Yarn start-api
 
 
 PS: 
+
 front end inspired by: https://towardsdatascience.com/create-a-complete-machine-learning-web-application-using-react-and-flask-859340bddb33
     
 data collection and pre-processing inspired by: https://towardsdatascience.com/building-a-covid-19-project-recommendation-system-4607806923b9
