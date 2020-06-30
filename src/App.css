@@ -28,6 +28,14 @@ html, body {
   color: black;
 }
 
+.subtitle{
+  padding-top: 30px;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 2em;
+  color: black;
+}
+
 label {
   color: #333;
 }

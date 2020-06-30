@@ -109,6 +109,7 @@ class App extends Component {
     
     // push things into a list and render later in the result container below
     const results = []
+    results.push(<div><p></p><b>Note: repos below are not sorted. </b><p></p></div>)
     for (var itemIdx = 0; itemIdx < recommendations.length; itemIdx++) {
       results.push(
         <div>
@@ -139,6 +140,7 @@ class App extends Component {
       <Container>
         <div>
           <h1 className="title">COVID19 GitHub Projects Recommendation System</h1>
+          <h5 className="subtitle">Find your aimed project</h5>
         </div>
         <div className="content">
           <Form>
@@ -188,6 +190,7 @@ class App extends Component {
               </Col>
             </Row>
           </Form>
+          
           {result === "" ? null : results}
         </div>
       </Container>
