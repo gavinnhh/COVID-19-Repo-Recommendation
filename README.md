@@ -18,6 +18,20 @@ export FLASK_APP=api.py
 
 Yarn start-api
 
+why yarn start-api?
+
+because in package.json we have:
+
+"scripts": {
+    "start": "react-scripts start",
+    "start-api": "cd api/venv && flask run --no-debugger",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  
+ When we do yarn start-api, it first goes into directory api and then run command flask run....
+
 ## How do i collect the data from github
 
 //todo
