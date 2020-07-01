@@ -117,11 +117,11 @@ class App extends Component {
     for (var itemIdx = 0; itemIdx < recommendations.length; itemIdx++) {
       results.push(
         <div>
-        <i class="fa fa-github" ></i>
+        <i className="fa fa-github" ></i>
         <a href={recommendations[itemIdx].github_repo_url} > {recommendations[itemIdx].owner_repo_name}</a>
         <Col>{recommendations[itemIdx].repo_description}</Col> 
         <Col><span role="img" aria-label="sheep">&#9734; </span> {recommendations[itemIdx].count_of_stars}</Col>
-        <Col> <i class="fa fa-code-fork" aria-hidden="true"></i> {recommendations[itemIdx].count_of_public_forks}</Col>
+        <Col> <i className="fa fa-code-fork" aria-hidden="true"></i> {recommendations[itemIdx].count_of_public_forks}</Col>
         <Col> Language: {recommendations[itemIdx].primary_language_name}</Col>
         <Col> Contributors: {recommendations[itemIdx].count_distinct_contributors}</Col>
         <Col> Created: {recommendations[itemIdx].repo_created_day}</Col>
@@ -200,7 +200,10 @@ class App extends Component {
           
           {result === "" ? null : results}
         </div>
+        
       </Container>
+
+      
     );
   }
 }
