@@ -105,19 +105,26 @@ class App extends Component {
       var obj = JSON.parse(item.replace(/\bNaN\b/g, "null"));
       recommendations.push(obj)
     });
+    
+    // sort retrived repos by the count of stars
+    recommendations.sort(function(a, b){return b.count_of_stars - a.count_of_stars}); 
     //recommendations.forEach(item => console.log(item));
+    
     
     // push things into a list and render later in the result container below
     const results = []
-    results.push(<div><p></p><b>Note: repos below are not sorted. </b><p></p></div>)
+    results.push(<div><p></p><b>Note: repos below are sorted by count of stars. </b><p></p></div>)
     for (var itemIdx = 0; itemIdx < recommendations.length; itemIdx++) {
       results.push(
         <div>
-        <a href={recommendations[itemIdx].github_repo_url} >{itemIdx+1}. {recommendations[itemIdx].owner_repo_name}</a>
+        <i class="fa fa-github" ></i>
+        <a href={recommendations[itemIdx].github_repo_url} > {recommendations[itemIdx].owner_repo_name}</a>
         <Col>{recommendations[itemIdx].repo_description}</Col> 
-        <Col><span role="img" aria-label="sheep">&#9733; </span> {recommendations[itemIdx].count_of_stars}</Col>
-        <Col>{recommendations[itemIdx].primary_language_name}</Col>
-        <Col>{recommendations[itemIdx].repo_created_day}</Col>
+        <Col><span role="img" aria-label="sheep">&#9734; </span> {recommendations[itemIdx].count_of_stars}</Col>
+        <Col> <i class="fa fa-code-fork" aria-hidden="true"></i> {recommendations[itemIdx].count_of_public_forks}</Col>
+        <Col> Language: {recommendations[itemIdx].primary_language_name}</Col>
+        <Col> Contributors: {recommendations[itemIdx].count_distinct_contributors}</Col>
+        <Col> Created: {recommendations[itemIdx].repo_created_day}</Col>
         </div>
         )
     }
