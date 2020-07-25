@@ -12,7 +12,8 @@ class App extends Component {
 
   constructor(props) {
     super(props);
-
+    this.recommendClickd = false;
+    this.count = 0;
     this.state = {
       isLoading: false,
       formData: {
@@ -36,6 +37,8 @@ class App extends Component {
   }
 
   handleRecommendClick = (event) => {
+    this.recommendClickd = true;
+    this.count += 1;
     const formData = this.state.formData;
     // console.log(formData.language + ' ' + formData.keyword);
     this.setState({ isLoading: true });
@@ -65,13 +68,39 @@ class App extends Component {
 
   handleCancelClick = (event) => {
     this.setState({ result: "" });
+    this.count = 0;
+  }
+
+  getLatestRepo = (owner_repo_name) => {
+    console.log("calling getLatestRepo " + owner_repo_name);
+    var returndRepo;
+    // fetch('https://api.github.com/reposcovidatlas/coronadatascraper',
+    // fetch('https://api.github.com/repos/'+owner_repo_name, 
+    // {
+    //   headers: {
+    //     'Accept': 'application/json',
+    //     'Content-Type': 'application/json'
+    //   },
+    //   method: 'GET',
+    // })
+    // .then(response => response.json())
+    // .then(data => console.log(data))
+    // .then(response => {
+    //   returndRepo = response
+    // })
+    // .catch(error =>{
+    //   console.error("error: ", error);
+    // });
+
+
+    return returndRepo;
   }
 
   render() {
     const isLoading = this.state.isLoading;
     const formData = this.state.formData;
     const result = this.state.result;
-    //console.log("render result: " + result);
+    console.log("render result: " + result);
 
     // var content = '{"github_repo_url": "https://github.com/qingyuanzhao/2019-nCov-Data", "repo_description": "data for the 2019-ncov outbreak", "topics": "2019ncov", "owner_repo_name": "qingyuanzhao/2019-nCov-Data", "owner_name": "qingyuanzhao", "owner_type": "User", "organization_bio": NaN, "repo_created_day": "2020-01-31", "primary_language_name": "HTML", "license_name": "cc-by-4.0", "is_github_pages": false, "has_readme": true, "has_wiki": true, "has_merged_prs": true, "has_issues": true, "has_contributor_guide": false, "has_code_of_conduct": false, "count_of_public_forks": 9, "count_of_stars": 24, "count_of_watchers": 24, "count_distinct_contributors": 7, "count_contributions": 91, "count_commits": 50, "count_commit_comments": 0, "count_created_issues": 8, "count_pull_requests_created": 3, "count_pull_requests_reviews": 0, "count_comments_on_issues_and_pull_requests": 30, "language": "en", "is_latin_only_characters": true, "repo_description_cleaned": "data for the 2019ncov outbreak", "description_plus_topics": "data for the 2019ncov outbreak 2019ncov HTML"}';
     // var obj = JSON.parse(content.replace(/\bNaN\b/g, "null")); // use this because json can not handle NaN in the string content
@@ -109,11 +138,20 @@ class App extends Component {
     // sort retrived repos by the count of stars
     recommendations.sort(function(a, b){return b.count_of_stars - a.count_of_stars}); 
     //recommendations.forEach(item => console.log(item));
-    
-    
+    // console.log("this.count: " +  this.count );
+    const latestResults = []
+    if(this.count > 0){
+      for(var repoIdx = 0; repoIdx < recommendations.length; repoIdx++){
+        var repo = this.getLatestRepo(recommendations[repoIdx].owner_repo_name);
+        latestResults.push(repo);
+      }
+    }
+
+    // console.log("this.count: " +  this.count );
+    // console.log("recommendations.length: " +  recommendations.length );
     // push things into a list and render later in the result container below
     const results = []
-    results.push(<div><p></p><b>Note: repos below are sorted by count of stars. </b><p></p></div>)
+    results.push(<div><p></p><b>Note: numbers below may not be the latest. </b><p></p></div>)
     for (var itemIdx = 0; itemIdx < recommendations.length; itemIdx++) {
       results.push(
         <div>

@@ -15,6 +15,7 @@ import boto3
 import pandas as pd
 import json
 from flask_cors import CORS
+from bs4 import BeautifulSoup
 
 app = Flask(__name__)
 
@@ -58,8 +59,27 @@ def get_prediction_by_post():
 			ContentType='application/json; format=pandas-split'
 		)
 	
-	prediction = prediction['Body'].read()
-	return jsonify(prediction)
+	prediction = prediction['Body'].read().decode("utf-8")
+
+	final_dictionary = prediction.split("}, {")
+	final_dictionary[0] = final_dictionary[0][3:]  # get rid of "[[{" in the front
+	final_dictionary[9] = final_dictionary[9][:-3]  # get rif of "}]]" in the end
+
+	for i in range(len(final_dictionary)):
+		final_dictionary[i] = "{" + final_dictionary[i] + "}"
+		final_dictionary[i] = json.loads(final_dictionary[i])
+		URL = final_dictionary[i]["github_repo_url"]
+		page = requests.get(URL)
+		soup = BeautifulSoup(page.content, 'html.parser')
+		starTags = soup.findAll("a", "social-count js-social-count")
+		starTag = starTags[0]
+		htmlstartxt = str(starTag)
+		star = BeautifulSoup(htmlstartxt, 'lxml').text
+		final_dictionary[4]["count_of_stars"] = star
+	
+	return jsonify(final_dictionary)
+	# recommendations = jsonify(prediction)
+	# return jsonify(prediction)
 
 if __name__ == '__main__':
     app.run(debug=True)
