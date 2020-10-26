@@ -6,6 +6,8 @@ model endpoint to put into production. The front end uses React and the server e
 
 ## Instructions to run the app
 
+Please make sure AWS and Docker is ready. 
+
 To run the whole project:
 
 Open one terminal and do:
