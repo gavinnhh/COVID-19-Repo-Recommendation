@@ -6,7 +6,7 @@ model endpoint to put into production. The front end uses React and the server e
 
 ## Instructions to run the app
 
-Please make sure AWS and Docker is ready. 
+Please make sure AWS, MLflow and Docker are ready. 
 
 To run the whole project:
 
